@@ -1,22 +1,23 @@
 package dev.tutorials.compose_basics
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Button
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.tutorials.compose_basics.ui.theme.BasicsCodelabTheme
@@ -76,15 +77,20 @@ private fun Greeting(name: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(24.dp)
+            .padding(16.dp)
+            .background(color = Color.LightGray)
     ) {
         Column(
             modifier = Modifier
                 .weight(1f)
                 .padding(bottom = extraPadding.coerceAtLeast(0.dp))
         ) {
-            Text(text = "Halo,")
-            Text(text = name)
+            Text(text = "Halo,", style = MaterialTheme.typography.h5)
+            Text(
+                text = name,
+                // `copy` for modifying defined style
+                style = MaterialTheme.typography.h4.copy(fontWeight = FontWeight.ExtraBold)
+            )
         }
         OutlinedButton(onClick = { isExpanded = !isExpanded }) {
             Text(text = if (isExpanded) "Show less" else "Show more!")
@@ -141,3 +147,15 @@ fun OnboardingPreview() {
     }
 }
 
+@Preview(
+    showBackground = true,
+    widthDp = 320,
+    uiMode = UI_MODE_NIGHT_YES,
+    name = "DefaultPreviewDark"
+)
+@Composable
+fun DefaultPreviewDark() {
+    BasicsCodelabTheme {
+        Greetings()
+    }
+}

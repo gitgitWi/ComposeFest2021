@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Surface
@@ -43,9 +45,11 @@ fun MyApp() {
 }
 
 @Composable
-private fun Greetings(names: List<String> = listOf("World", "Space")) {
-    Column(modifier = Modifier.padding(vertical = 4.dp)) {
-        for (name in names) Greeting(name = name)
+private fun Greetings(names: List<String> = List(1000) { "$it" }) {
+    LazyColumn(modifier = Modifier.padding(vertical = 4.dp)) {
+        items(items = names) { name ->
+            Greeting(name = name)
+        }
     }
 }
 
@@ -54,8 +58,6 @@ private fun Greeting(name: String) {
     // remember를 사용해 mutable state를 기억, recompositions 방지
     val isExpanded = remember { mutableStateOf(false) }
     val extraPadding = if (isExpanded.value) 48.dp else 0.dp
-
-
 
     Row(
         modifier = Modifier

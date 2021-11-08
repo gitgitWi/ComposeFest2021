@@ -11,6 +11,7 @@ import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,7 +34,8 @@ class MainActivity : ComponentActivity() {
 fun MyApp() {
 
     // hoisted variable, `by` for delegating
-    var shouldShowOnboarding by remember { mutableStateOf(true) }
+    // `rememberSaveable` for saving state even if process down
+    var shouldShowOnboarding by rememberSaveable { mutableStateOf(true) }
 
 
     if (shouldShowOnboarding) {
